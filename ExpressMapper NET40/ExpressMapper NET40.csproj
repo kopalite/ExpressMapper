@@ -63,6 +63,7 @@
     <Compile Include="FlattenMapper.cs" />
     <Compile Include="IMappingContext.cs" />
     <Compile Include="IMappingServiceProvider.cs" />
+    <Compile Include="IMemberConfigTemplate.cs" />
     <Compile Include="Ioc\DependencyResolver.cs" />
     <Compile Include="Ioc\IContainer.cs" />
     <Compile Include="FlattenLinqMethod.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="MappingServiceProvider.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MemberConfigTemplate.cs" />
     <Compile Include="NullCheckNestedMemberVisitor.cs">
       <SubType>Code</SubType>
     </Compile>
