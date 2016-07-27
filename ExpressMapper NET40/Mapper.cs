@@ -68,6 +68,16 @@ namespace ExpressMapper
             return Instance.Register<T, TN>();
         }
 
+        public static IMemberConfiguration<T, TN> BaseOn<T, TBase, TN, TNBase>()
+        {
+            return Instance.BaseOn<T, TBase, TN, TNBase>();
+        }
+
+        public static IMemberConfiguration<T, TN> Include<T, TBase, TN, TNBase>()
+        {
+            return Instance.Include<T, TBase, TN, TNBase>();
+        }
+
         public static bool MapExists(Type sourceType, Type destinationType)
         {
             return Instance.MapExists(sourceType, destinationType);

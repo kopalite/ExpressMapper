@@ -117,7 +117,7 @@ namespace ExpressMapper
                     throw new ExpressmapperException(
                         string.Format(
                             "Error error occured trying to compile mapping for: source {0}, destination {1}. See the inner exception for details.",
-                            typeof (T).FullName, typeof (TN).FullName), ex);
+                            typeof(T).FullName, typeof(TN).FullName), ex);
                 }
             }
             finally
@@ -441,6 +441,17 @@ namespace ExpressMapper
                 result.Add(new KeyValuePair<MemberExpression, Expression>(dest, src));
             }
             return result;
+        }
+
+        public ITypeMapper<TChild, TNChild> Clone<TChild, TNChild>()
+        {
+            //TODO: recreate inner state in new type mapper.
+            return null;
+        }
+
+        public void Include<TParent, TNParent>(ITypeMapper<TParent, TNParent> parent)
+        {
+            //TODO: recreate inner state in this instance basing on given type mapper.
         }
     }
 }

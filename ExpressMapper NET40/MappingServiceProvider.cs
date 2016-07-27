@@ -116,6 +116,60 @@ namespace ExpressMapper
             }
         }
 
+        public IMemberConfiguration<T, TN> BaseOn<T, TBase, TN, TNBase>()
+        {
+            lock (_lock)
+            {
+                var baseCacheKey = CalculateCacheKey(typeof(TBase), typeof(TNBase));
+
+                if (!(SourceService.TypeMappers.ContainsKey(baseCacheKey) && DestinationService.TypeMappers.ContainsKey(baseCacheKey)))
+                {
+                    throw new InvalidOperationException(string.Format("Mapping from {0} to {1} is not registered", typeof(TBase).FullName, typeof(TNBase).FullName));
+                }
+                
+                var sourceChildMapper = ((ITypeMapper<TBase, TNBase>)SourceService.TypeMappers[baseCacheKey]).Clone<T, TN>();
+                var destinationChildMapper = ((ITypeMapper<TBase, TNBase>)DestinationService.TypeMappers[baseCacheKey]).Clone<T, TN>();
+
+                var childCacheKey = CalculateCacheKey(typeof(T), typeof(TN));
+
+                SourceService.TypeMappers[childCacheKey] = sourceChildMapper;
+                DestinationService.TypeMappers[childCacheKey] = destinationChildMapper;
+
+                return new MemberConfiguration<T, TN>(new ITypeMapper<T, TN>[] { sourceChildMapper, destinationChildMapper });
+            }
+        }
+
+        public IMemberConfiguration<T, TN> Include<T, TBase, TN, TNBase>()
+        {
+            lock (_lock)
+            {
+                var baseCacheKey = CalculateCacheKey(typeof(TBase), typeof(TNBase));
+
+                if (!(SourceService.TypeMappers.ContainsKey(baseCacheKey) && DestinationService.TypeMappers.ContainsKey(baseCacheKey)))
+                {
+                    throw new InvalidOperationException(string.Format("Mapping from {0} to {1} is not registered", typeof(TBase).FullName, typeof(TNBase).FullName));
+                }
+
+                var childCacheKey = CalculateCacheKey(typeof(T), typeof(TN));
+
+                if (!(SourceService.TypeMappers.ContainsKey(childCacheKey) && DestinationService.TypeMappers.ContainsKey(childCacheKey)))
+                {
+                    throw new InvalidOperationException(string.Format("Mapping from {0} to {1} is not registered", typeof(T).FullName, typeof(TN).FullName));
+                }
+
+                var sourceMapper = ((ITypeMapper<TBase, TNBase>)SourceService.TypeMappers[baseCacheKey]);
+                var destinationMapper = ((ITypeMapper<TBase, TNBase>)DestinationService.TypeMappers[baseCacheKey]);
+
+                var sourceChildMapper = ((ITypeMapper<T, TN>)SourceService.TypeMappers[baseCacheKey]);
+                var destinationChildMapper = ((ITypeMapper<T, TN>)DestinationService.TypeMappers[baseCacheKey]);
+
+                sourceChildMapper.Include(sourceMapper);
+                destinationChildMapper.Include(destinationMapper);
+
+                return new MemberConfiguration<T, TN>(new ITypeMapper<T, TN>[] { sourceChildMapper, destinationChildMapper });
+            }
+        }
+
         public void Compile()
         {
             lock (_lock)

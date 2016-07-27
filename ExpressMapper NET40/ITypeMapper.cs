@@ -21,6 +21,8 @@ namespace ExpressMapper
     public interface ITypeMapper<T, TN> : ITypeMapper
     {
         Expression<Func<T, TN>> QueryableExpression { get; }
+        CompilationTypes MapperType { get; }
+
         TN MapTo(T src, TN dest);
         void Ignore<TMember>(Expression<Func<TN, TMember>> left);
         void Ignore(PropertyInfo left);
@@ -34,6 +36,9 @@ namespace ExpressMapper
         void BeforeMap(Action<T,TN> beforeMap);
         void AfterMap(Action<T,TN> afterMap);
         void Flatten();
-        CompilationTypes MapperType { get; }
+        
+        ITypeMapper<TChild, TNChild> Clone<TChild, TNChild>();
+        void Include<TParent, TNParent>(ITypeMapper<TParent, TNParent> parent);
+
     }
 }

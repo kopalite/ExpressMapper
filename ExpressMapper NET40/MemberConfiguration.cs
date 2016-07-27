@@ -49,11 +49,6 @@ namespace ExpressMapper
             return this;
         }
 
-        public IMemberConfiguration<T, TN> Base<TBase>(Expression<Action<T, TN>> afterHandler) where TBase : class, new()
-        {
-            throw new NotImplementedException();
-        }
-
         public IMemberConfiguration<T, TN> Member<TMember, TNMember>(Expression<Func<TN, TNMember>> dest, Expression<Func<T, TMember>> src)
         {
             if (dest == null)
@@ -178,6 +173,11 @@ namespace ExpressMapper
         }
 
         #endregion
+
+        public IMemberConfiguration<T, TN> Include<TBase, TNBase>()
+        {
+            return Mapper.Instance.Include<T, TBase, TN, TNBase>();
+        }
 
     }
 }

@@ -71,7 +71,6 @@
     <Compile Include="MappingServiceProvider.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MemberConfigTemplate.cs" />
     <Compile Include="NullCheckNestedMemberVisitor.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -91,7 +90,6 @@
     <Compile Include="Mapper.cs" />
     <Compile Include="MemberConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TemplateMemberCouple.cs" />
     <Compile Include="TypeMapperBase.cs" />
   </ItemGroup>
   <ItemGroup>
