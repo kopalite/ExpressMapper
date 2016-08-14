@@ -448,10 +448,5 @@ namespace ExpressMapper
             //TODO: recreate inner state in new type mapper.
             return null;
         }
-
-        public void Include<TParent, TNParent>(ITypeMapper<TParent, TNParent> parent)
-        {
-            //TODO: recreate inner state in this instance basing on given type mapper.
-        }
     }
 }

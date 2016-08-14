@@ -173,11 +173,5 @@ namespace ExpressMapper
         }
 
         #endregion
-
-        public IMemberConfiguration<T, TN> Include<TBase, TNBase>()
-        {
-            return Mapper.Instance.Include<T, TBase, TN, TNBase>();
-        }
-
     }
 }

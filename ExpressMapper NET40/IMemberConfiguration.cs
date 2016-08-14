@@ -21,6 +21,5 @@ namespace ExpressMapper
         IMemberConfiguration<T, TN> CaseSensitive(bool caseSensitive);
         IMemberConfiguration<T, TN> CompileTo(CompilationTypes compilationType);
         IMemberConfiguration<T, TN> Flatten();
-        IMemberConfiguration<T, TN> Include<TBase, TNBase>();
     }
 }

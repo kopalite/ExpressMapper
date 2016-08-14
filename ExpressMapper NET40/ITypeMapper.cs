@@ -36,9 +36,7 @@ namespace ExpressMapper
         void BeforeMap(Action<T,TN> beforeMap);
         void AfterMap(Action<T,TN> afterMap);
         void Flatten();
-        
-        ITypeMapper<TChild, TNChild> Clone<TChild, TNChild>();
-        void Include<TParent, TNParent>(ITypeMapper<TParent, TNParent> parent);
 
+        ITypeMapper<TChild, TNChild> Clone<TChild, TNChild>();
     }
 }
