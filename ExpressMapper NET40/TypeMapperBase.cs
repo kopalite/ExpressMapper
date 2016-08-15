@@ -509,8 +509,8 @@ namespace ExpressMapper
             Action<TChild> test = x => ConstructorExp.Compile()(x);
 
             childMapper.IgnoreMemberList.AddRange(IgnoreMemberList);
-            childMapper.BeforeMapHandler = (t, tn) => BeforeMapHandler(t, tn);
-            childMapper.AfterMapHandler = (t, tn) => AfterMapHandler(t, tn);
+            if (BeforeMapHandler != null) childMapper.BeforeMapHandler = (t, tn) => BeforeMapHandler(t, tn);
+            if (AfterMapHandler != null) childMapper.AfterMapHandler = (t, tn) => AfterMapHandler(t, tn);
 
             //TODO: throw exception or make a warning that ConstructorExp cannot re-created or re-used. 
             //      Cannot create Expression<Func<TChild, TNChild>> out of Expression<Func<T, TN>>
