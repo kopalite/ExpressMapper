@@ -443,10 +443,85 @@ namespace ExpressMapper
             return result;
         }
 
-        public ITypeMapper<TChild, TNChild> Clone<TChild, TNChild>()
+        public abstract ITypeMapper<TChild, TNChild> Clone<TChild, TNChild>() where TChild : T where TNChild : TN;
+
+        protected void Restore<TChild, TNChild>(TypeMapperBase<TChild, TNChild> childMapper) where TChild : T where TNChild : TN
         {
-            //TODO: recreate inner state in new type mapper.
-            return null;
+            /*
+            
+            //common protected field
+            protected ParameterExpression SourceParameter = Expression.Parameter(typeof(T), SrcString);
+
+            //used in ctor 
+            protected List<Expression> RecursiveExpressionResult { get; private set; }
+
+            //used in Compile() -> CompileInternal()
+            protected List<Expression> ResultExpressionList { get; private set; }
+
+            //used in Compile() -> CompileInternal()
+            protected Func<T, TN, TN> ResultMapFunction { get; set; }
+            
+            //used in Compile() -> CompileInternal()
+            protected Dictionary<string, Expression> PropertyCache { get; private set; }
+
+            //used in Compile() -> CompileInternal()
+            protected Dictionary<string, Expression> CustomPropertyCache { get; private set; }
+
+            //Used in GetGetNonGenericMapFunc() for caching result
+            protected Func<object, object, object> NonGenericMapFunc { get; set; }
+
+            //INNER STATE: used in Ignore()
+            protected List<string> IgnoreMemberList { get; private set; }
+
+            //INNER STATE: used in Before()
+            protected Action<T, TN> BeforeMapHandler { get; set; }
+
+            //INNER STATE: used in After()
+            protected Action<T, TN> AfterMapHandler { get; set; }
+
+            //INNER STATE: used in InstantiateFunc()
+            protected Func<T, TN> ConstructorFunc { get; set; }
+
+            //INNER STATE: used in Instantiate()
+            protected Expression<Func<T, TN>> ConstructorExp { get; set; }
+
+            //INNER STATE: used in CaseSensetiveMemberMap()
+            protected bool CaseSensetiveMember { get; set; }
+
+            //INNER STATE: used in CaseSensetiveMemberMap()
+            protected bool CaseSensetiveOverride { get; set; }
+
+            //INNER STATE: used in CompileTo()
+            protected CompilationTypes CompilationTypeMember { get; set; }
+
+            //INNER STATE: used in CompileTo()
+            protected bool CompilationTypeOverride { get; set; }
+
+            */
+
+            childMapper.AutoMembers = new Dictionary<MemberInfo, MemberInfo>(AutoMembers);
+            childMapper.CustomMembers = new List<KeyValuePair<MemberExpression, Expression>>(CustomMembers);
+            childMapper.FlattenMembers = new List<KeyValuePair<MemberExpression, Expression>>(FlattenMembers);
+            childMapper.CustomFunctionMembers = new List<KeyValuePair<MemberExpression, Expression>>(CustomFunctionMembers);
+
+            childMapper.Flattened = Flattened;
+
+            Action<TChild> test = x => ConstructorExp.Compile()(x);
+
+            childMapper.IgnoreMemberList.AddRange(IgnoreMemberList);
+            childMapper.BeforeMapHandler = (t, tn) => BeforeMapHandler(t, tn);
+            childMapper.AfterMapHandler = (t, tn) => AfterMapHandler(t, tn);
+
+            //TODO: throw exception or make a warning that ConstructorExp cannot re-created or re-used. 
+            //      Cannot create Expression<Func<TChild, TNChild>> out of Expression<Func<T, TN>>
+
+            //TODO: throw exception or make a warning that ConstructorFunc cannot re-created or re-used. 
+            //      Cannot create Func<TChild, TNChild>> out of Func<T, TN>>. Func is not both covariant and contravariant
+
+            childMapper.CaseSensetiveMember = CaseSensetiveMember;
+            childMapper.CaseSensetiveOverride = CaseSensetiveOverride;
+            childMapper.CompilationTypeMember = CompilationTypeMember;
+            childMapper.CompilationTypeOverride = CompilationTypeOverride;
         }
     }
 }

@@ -116,7 +116,7 @@ namespace ExpressMapper
             }
         }
 
-        public IMemberConfiguration<T, TN> BaseOn<T, TBase, TN, TNBase>()
+        public IMemberConfiguration<T, TN> BaseOn<T, TBase, TN, TNBase>() where T : TBase where TN : TNBase
         {
             lock (_lock)
             {

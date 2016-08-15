@@ -194,5 +194,12 @@ namespace ExpressMapper
                     Expression.Bind(destProp, expression));
             }
         }
+
+        public override ITypeMapper<TChild, TNChild> Clone<TChild, TNChild>()
+        {
+            var mapperClone = new SourceTypeMapper<TChild, TNChild>(MappingService, MappingServiceProvider);
+            Restore(mapperClone);
+            return mapperClone;
+        }
     }
 }

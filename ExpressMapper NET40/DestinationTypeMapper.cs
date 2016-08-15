@@ -81,5 +81,12 @@ namespace ExpressMapper
             var expression = Expression.Lambda<Func<T, TN, TN>>(resultExpression, SourceParameter, DestFakeParameter);
             ResultMapFunction = expression.Compile();
         }
+
+        public override ITypeMapper<TChild, TNChild> Clone<TChild, TNChild>()
+        {
+            var mapperClone = new DestinationTypeMapper<TChild, TNChild>(MappingService, MappingServiceProvider);
+            Restore(mapperClone);
+            return mapperClone;
+        }
     }
 }

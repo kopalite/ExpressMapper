@@ -68,7 +68,7 @@ namespace ExpressMapper
             return Instance.Register<T, TN>();
         }
 
-        public static IMemberConfiguration<T, TN> BaseOn<T, TBase, TN, TNBase>()
+        public static IMemberConfiguration<T, TN> BaseOn<T, TBase, TN, TNBase>() where T : TBase where TN : TNBase
         {
             return Instance.BaseOn<T, TBase, TN, TNBase>();
         }

@@ -40,6 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Dto.cs" />
+    <Compile Include="Models\DtoBase.cs" />
+    <Compile Include="Models\DtoSettings.cs" />
+    <Compile Include="Models\DtoSettingsBase.cs" />
+    <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\EntitySettings.cs" />
+    <Compile Include="Models\EntitySettingsBase.cs" />
     <Compile Include="Enums\AnotherStates.cs" />
     <Compile Include="Enums\GenderTypes.cs" />
     <Compile Include="Enums\States.cs" />
@@ -57,6 +64,7 @@
     <Compile Include="Models\Cylinder.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Engine.cs" />
+    <Compile Include="Models\EntityBase.cs" />
     <Compile Include="Models\FashionProduct.cs" />
     <Compile Include="Models\FatherLowerCase.cs" />
     <Compile Include="Models\Father.cs" />

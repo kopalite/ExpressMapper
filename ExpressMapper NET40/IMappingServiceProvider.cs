@@ -17,7 +17,7 @@ namespace ExpressMapper
         object Map(Type srcType, Type dstType, object src);
         object Map(Type srcType, Type dstType, object src, object dest);
         IMemberConfiguration<T, TN> Register<T, TN>();
-        IMemberConfiguration<T, TN> BaseOn<T, TBase, TN, TNBase>();
+        IMemberConfiguration<T, TN> BaseOn<T, TBase, TN, TNBase>() where T : TBase where TN : TNBase;
         bool MapExists(Type sourceType, Type destinationType);
         void RegisterCustom<T, TN, TMapper>() where TMapper : ICustomTypeMapper<T, TN>;
         void RegisterCustom<T, TN>(Func<T, TN> mapFunc);
